@@ -64,6 +64,12 @@ Dans le reste de la documentation sur le développement local, il est supposé q
   Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
 - `.quit` pour quitter
 
+- Transfert de base de donnée => via table intermédiaure ;
+  CREATE TABLE new_table_transfert AS SELECT * FROM table_a_copier;
+
+- Transfert de base de donnée d'une table à une autre ;
+  INSERT INTO table1 SELECT * FROM table2;
+
 #### Panel d'administration
 
 - Aller sur `http://localhost:8000/admin`
@@ -73,5 +79,5 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 
 Utilisation de PowerShell, comme ci-dessus sauf :
 
-- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
+- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1`
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
