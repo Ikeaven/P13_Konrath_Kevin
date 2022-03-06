@@ -5,36 +5,50 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  compilation:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/python:3.10.2
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    steps:
-      - checkout
-      - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-      - run:
-          name: "init python env"
-          command: |
-            python -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
-      - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          paths:
-            - "env"
-      - run:
-          name: "Running test"
-          command: |
-            . venv/bin/activate
-            flake8
-            python3 manage.py test
+    compilation:
+        # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+        # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+        docker:
+        - image: cimg/python:3.10.2
+        # Add steps to the job
+        # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+        steps:
+        - checkout
+        - restore_cache:
+            key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+        - run:
+            name: "init python env"
+            command: |
+                python -m venv venv
+                . venv/bin/activate
+                pip install -r requirements.txt
+        - save_cache:
+            key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+            paths:
+                - "env"
+        - run:
+            name: "Running test"
+            command: |
+                . venv/bin/activate
+                flake8
+                python3 manage.py test
+
+jobs:
+    conteneurisation:
+        steps:
+            - run:
+                name: "conteneurisation"
+                command: |
+                    docker build -t image_oc_letting_site .
+                    docker tag image_oc_letting_site p13_konrath_kevin:$CIRCLE_SHA1
+                    docker push kevinkonrath/p13_konrath_kevin:$CIRCLE_SHA1
+
+
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   pipeline-workflow:
     jobs:
       - compilation
+      - conteneurisation
