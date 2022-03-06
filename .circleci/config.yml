@@ -33,15 +33,16 @@ jobs:
                 flake8
                 python3 manage.py test
 
-# jobs:
-#     conteneurisation:
-#         steps:
-#             - run:
-#                 name: "conteneurisation"
-#                 command: |
-#                     docker build -t image_oc_letting_site .
-#                     docker tag image_oc_letting_site p13_konrath_kevin:$CIRCLE_SHA1
-#                     docker push kevinkonrath/p13_konrath_kevin:$CIRCLE_SHA1
+
+    conteneurisation:
+        steps:
+            - checkout
+            - run:
+                name: "conteneurisation"
+                command: |
+                    docker build -t image_oc_letting_site .
+                    docker tag image_oc_letting_site p13_konrath_kevin:$CIRCLE_SHA1
+                    docker push kevinkonrath/p13_konrath_kevin:$CIRCLE_SHA1
 
 
 
@@ -51,4 +52,4 @@ workflows:
   pipeline-workflow:
     jobs:
       - compilation
-    #   - conteneurisation
+      - conteneurisation
