@@ -14,12 +14,21 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
-          name: "compilation"
+          name: "init python env"
           command: |
             python -m venv env
             . env/bin/activate
             pip install -r requirements.txt
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - "env"
+      - run:
+          name: "Running test"
+          command: |
             pytest
 
 # Invoke jobs via workflows
