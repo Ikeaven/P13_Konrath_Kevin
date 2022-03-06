@@ -64,8 +64,12 @@ Dans le reste de la documentation sur le développement local, il est supposé q
   Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
 - `.quit` pour quitter
 
-- Transfert de base de donnée => via table intermédiaure ;
+- Transfert de base de donnée => via table intermédiaire ;
   CREATE TABLE new_table_transfert AS SELECT * FROM table_a_copier;
+
+  Une nouvelle table est créé contenant les informations.
+  Une fois le transfert effectué, on peut supprimer la table de transfert :
+    DROP TABLE new_table_transfert
 
 - Transfert de base de donnée d'une table à une autre ;
   INSERT INTO table1 SELECT * FROM table2;
