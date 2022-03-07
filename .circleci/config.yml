@@ -56,6 +56,6 @@ workflows:
   pipeline-workflow:
     jobs:
       - compilation
-      - conteneurisation
+      - conteneurisation:
         context:
             - ENV
