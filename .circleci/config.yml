@@ -43,7 +43,7 @@ jobs:
             - run:
                 name: "conteneurisation"
                 command: |
-                    docker login -u $DOCKER_USER -u $DOCKER_PASS
+                    docker login -u $DOCKER_USER -p $DOCKER_PASS
                     docker build -t image_oc_letting_site .
                     docker tag image_oc_letting_site kevinkonrath/p13_konrath_kevin:$CIRCLE_SHA1
                     docker push kevinkonrath/p13_konrath_kevin:$CIRCLE_SHA1
