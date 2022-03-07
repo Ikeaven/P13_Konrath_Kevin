@@ -44,7 +44,7 @@ jobs:
                 name: "conteneurisation"
                 command: |
                     docker build -t image_oc_letting_site .
-                    docker tag image_oc_letting_site p13_konrath_kevin:$CIRCLE_SHA1
+                    docker tag image_oc_letting_site kevinkonrath/p13_konrath_kevin:$CIRCLE_SHA1
                     docker push kevinkonrath/p13_konrath_kevin:$CIRCLE_SHA1
 
 
