@@ -57,5 +57,5 @@ workflows:
     jobs:
       - compilation
       - conteneurisation:
-        context:
+         context:
             - ENV
