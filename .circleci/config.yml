@@ -48,6 +48,18 @@ jobs:
                     docker tag image_oc_letting_site kevinkonrath/p13_konrath_kevin:$CIRCLE_SHA1
                     docker push kevinkonrath/p13_konrath_kevin:$CIRCLE_SHA1
 
+    deployment:
+        machine: true
+        steps:
+            - checkout
+            - run :
+                name : "push to Heroku"
+                command: |
+                    curl https://cli-assets.heroku.com/install.sh | sh
+                    HEROKU_API_KEY=$HEROKU_TOKEN heroku container:login
+                    HEROKU_API_KEY=$HEROKU_TOKEN heroku container:push web
+                    HEROKU_API_KEY=$HEROKU_TOKEN heroku container:release web
+
 
 
 
@@ -58,4 +70,7 @@ workflows:
       - compilation
       - conteneurisation:
          context:
+            - ENV
+      - deployment:
+        context:
             - ENV
