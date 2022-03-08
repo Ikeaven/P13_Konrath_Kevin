@@ -58,7 +58,7 @@ jobs:
                     curl https://cli-assets.heroku.com/install.sh | sh
                     HEROKU_API_KEY=$HEROKU_TOKEN heroku container:login
                     HEROKU_API_KEY=$HEROKU_TOKEN heroku container:push -a oc-lettings-konrath web
-                    HEROKU_API_KEY=$HEROKU_TOKEN heroku container:release web
+                    HEROKU_API_KEY=$HEROKU_TOKEN heroku container:release -a oc-lettings-konrath web
 
 
 
