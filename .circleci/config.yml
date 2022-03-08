@@ -57,7 +57,7 @@ jobs:
                 command: |
                     curl https://cli-assets.heroku.com/install.sh | sh
                     HEROKU_API_KEY=$HEROKU_TOKEN heroku container:login
-                    HEROKU_API_KEY=$HEROKU_TOKEN heroku container:push -a P13_KONRATH_KEVIN web
+                    HEROKU_API_KEY=$HEROKU_TOKEN heroku container:push -a oc-lettings-konrath web
                     HEROKU_API_KEY=$HEROKU_TOKEN heroku container:release web
 
 
@@ -69,8 +69,15 @@ workflows:
         jobs:
             - compilation
             - conteneurisation:
+                filters:
+                    branches:
+                        only: master
+                requires:
+                    - compilation
                 context:
                     - ENV
             - deployment:
+                requires:
+                    - conteneurisation
                 context:
                     - ENV
