@@ -53,6 +53,9 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - `source venv/bin/activate`
 - `pytest`
 
+ou via django :
+- python3 manage.py test
+
 #### Base de données
 
 - `cd /path/to/Python-OC-Lettings-FR`
@@ -85,3 +88,23 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1`
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+### Déploiement
+
+Quand un développeur pousser le code sur la branche master :
+  - CircleCI lance le processus de compilation => il execute la suite de tests
+  - Si les tests passent avec succès, CircleCI lance le processus de conteneurisation avec docker.
+  - Si la conteneurisation se passe sans erreur, alors CircleCI lance le processus de deployement.
+
+Pour vérifier les tests manuelement => cf test unitaire
+Pour créer une image docker, et lancer l'image docker  :
+  - Dans un terminal, aller à la racine du projet avec la commande cd
+  - Pour créer l'image docker du projet, lancer la commande : docker build -t [nom_image] .
+  [non_image] est le nom que vous donnez à l'image docker créer. Notez le . en fin de commande, qui représente le dossier courant (le dossier du projet qui contient le fichier DockerFile)
+  - vérifiez que l'image docker a bien était créée : docker images
+  Le nom de votre image doit se trouver dans la liste des images disponibles.
+  - Pour lancer le conteneur : docker run --rm [nom_image]
+  - Pour stop et supprimer le conteneur : docker ps -a
+    - copier l'id du conteneur
+    - docker stop [id_conteneur]
+    - docker rm [id_conteneur] (si on a pas mis l'option --rm au moment du run)
