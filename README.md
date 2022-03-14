@@ -97,8 +97,12 @@ Quand un développeur pousser le code sur la branche master :
   - Si la conteneurisation se passe sans erreur, alors CircleCI lance le processus de deployement.
 
 Pour vérifier les tests manuelement => cf test unitaire
-Pour créer une image docker, et lancer l'image docker  :
+
+Pour créer une image docker, et lancer l'image docker manuellement
+AVEC DOCKER :
   - Dans un terminal, aller à la racine du projet avec la commande cd
+  - Ouvrir le DockerFile, commenter la ligne CMD sans bind, et decommenter la ligne CMD avec bind.
+    Il faut que l'adresse de gunicorne soit liée à 0.0.0.0 pendant les tests en local.
   - Pour créer l'image docker du projet, lancer la commande : docker build -t [nom_image] .
   [non_image] est le nom que vous donnez à l'image docker créer. Notez le . en fin de commande, qui représente le dossier courant (le dossier du projet qui contient le fichier DockerFile)
   - vérifiez que l'image docker a bien était créée : docker images
@@ -108,3 +112,15 @@ Pour créer une image docker, et lancer l'image docker  :
     - copier l'id du conteneur
     - docker stop [id_conteneur]
     - docker rm [id_conteneur] (si on a pas mis l'option --rm au moment du run)
+
+  - pour supprimer toutes les images dockers et cleaner le systeme une fois que tous les tests sont terminés :
+    docker system prune -a
+
+AVEC DOCKER-COMPOSE :
+Dans un terminal, à la racine du projet. Le dossier doit contenir un fichier docker-compose.yml
+Lancer la commande :
+$ docker-compose up
+Cette commande va créer une image docker, et lancer le container.
+
+Pour stoper, et supprimer les containers :
+$ docker-compose down
