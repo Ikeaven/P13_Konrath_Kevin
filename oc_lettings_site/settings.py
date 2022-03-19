@@ -17,7 +17,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'Optional default value')
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['https://oc-lettings-konrath.herokuapp.com/', 'http://127.0.0.1:8000/']
 
 # Application definition
 
