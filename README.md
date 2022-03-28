@@ -124,3 +124,17 @@ Cette commande va créer une image docker, et lancer le container.
 
 Pour stoper, et supprimer les containers :
 $ docker-compose down
+
+### Journalisation Sentry
+
+La journalisation des erreurs se fait avec Sentry.
+Nous avons initialiser le SDK python dans les settings du projet, en fin de fichier.
+
+En phase de developpement, vous pouvez router les erreurs vers votre projet Sentry.
+Pour ce faire vous devez changer l'adresse de la variable nommée dsn, et remplacer par la valeur de votre projet Sentry.
+
+Pour trouver l'adresse dsn :
+- A la création d'un nouveau projet, sentry vous indique l'adresse dans le code d'intégration.
+
+- Ou si le projet est déjà créé, dans les settings du projet, aller dans le menu Client Keys,
+copier l'addresse DSN pour la coller à la place de la valeur de la variable dsn dans l'initialisation du sdk sentry du fichier settings.
