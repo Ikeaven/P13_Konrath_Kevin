@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   web:
-    # build
+    # build: .
     image: kevinkonrath/p13_konrath_kevin:660451f91fd433b3d21c2a55c2d0166ca8b43f3d
 
     # command: python manage.py runserver 0.0.0.0:8000
