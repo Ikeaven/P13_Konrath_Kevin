@@ -2,7 +2,9 @@ version: "3.3"
 
 services:
   web:
-    build: .
+    # build
+    image: kevinkonrath/p13_konrath_kevin:0060175b166b7458e8eda5636203ec0132de2b12
+
     # command: python manage.py runserver 0.0.0.0:8000
     command: gunicorn --bind=0.0.0.0 oc_lettings_site.wsgi
     volumes:

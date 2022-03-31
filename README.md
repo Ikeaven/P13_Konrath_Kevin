@@ -98,8 +98,30 @@ Quand un développeur pousser le code sur la branche master :
 
 Pour vérifier les tests manuelement => cf test unitaire
 
-Pour créer une image docker, et lancer l'image docker manuellement
+### Pour créer/récupérer une image docker, et lancer l'image docker manuellement
+
+RECUPERER L'IMAGE
+Vous trouverez les différentes versions de developpement sur dockerhub :
+https://hub.docker.com/repository/docker/kevinkonrath/p13_konrath_kevin
+
+Récupérer l'image souhaité en copiant le nom de l'image et le tag associé.
+
+Pour récupérer l'image en local
 AVEC DOCKER :
+ $ docker pull kevinkonrath/p13_konrath_kevin:0060175b166b7458e8eda5636203ec0132de2b12
+Pour cette commande 0060175b166b7458e8eda5636203ec0132de2b12 est le tag du container souhaité.
+
+
+AVEC DOCKER-COMPOSE:
+Dans le fichier docker-compose.yml, ligne 6, remplacer le tag de l'image souhaité.
+Verifier que la ligne 5 contenant 'build: .' soit commentée.
+Puis dans le terminal :
+$ docker-compose up
+
+
+CREER UNE NOUVELLE IMAGE
+AVEC DOCKER :
+
   - Dans un terminal, aller à la racine du projet avec la commande cd
   - Ouvrir le DockerFile, commenter la ligne CMD sans bind, et decommenter la ligne CMD avec bind.
     Il faut que l'adresse de gunicorne soit liée à 0.0.0.0 pendant les tests en local.
@@ -116,8 +138,16 @@ AVEC DOCKER :
   - pour supprimer toutes les images dockers et cleaner le systeme une fois que tous les tests sont terminés :
     docker system prune -a
 
+
+CREER UNE NOUVELLE IMAGE
 AVEC DOCKER-COMPOSE :
-Dans un terminal, à la racine du projet. Le dossier doit contenir un fichier docker-compose.yml
+
+Dans le fichier docker-compose.yml, à la racine du projet.
+Décommenter la ligne 5, pour créer une nouvelle image à partir des fichiers projet en local,
+Commenter la ligne 6, pour que docker n'aille PAS récupérer l'image sur dockerHub.
+
+Dans un terminal, à la racine du projet.
+
 Lancer la commande :
 $ docker-compose up
 Cette commande va créer une image docker, et lancer le container.
